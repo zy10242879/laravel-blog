@@ -24,7 +24,7 @@
 					<li>
 						<input type="text" class="code" name="code"/>
 						<span><i class="fa fa-check-square-o"></i></span>
-						<img src="#" alt="">
+						<img src="{{url('admin/code')}}" alt="" onclick="this.src='{{url('admin/code')}}?'+Math.random()"><!--此处假传一个参数，让浏览器默认为总是改的-->
 					</li>
 					<li>
 						<input type="submit" value="立即登陆"/>
