@@ -18,9 +18,10 @@ Route::group(['middleware' => ['web']], function () {
     });
   Route::any('admin/login','Admin\LoginController@login');
   Route::get('admin/code','Admin\LoginController@code');
-  Route::get('admin/index','Admin\IndexController@index');
-  Route::get('admin/info','Admin\IndexController@info');
-
-
-
+});
+//建立admin下的路由及中间件的设置 用于判断session，是否是登录状态
+Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace'=>'Admin'], function () {
+  Route::get('index','IndexController@index');
+  Route::get('info','IndexController@info');
+  Route::get('logout','LoginController@logout');
 });

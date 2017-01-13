@@ -30,11 +30,16 @@ class LoginController extends CommonController
       }
       //将数据写入session中
       session(['user_name'=>$user['user_name']]);
-      session(['is_login'=>1]);
       //跳转到后台index首页
       return redirect('admin/index');
     }
     return view('admin.login');
+  }
+  //退出并清session
+  public function logout()
+  {
+    session(['user_name'=>null]);
+    return redirect('admin/login');
   }
     //获得验证码图片的方法
     public function code()
