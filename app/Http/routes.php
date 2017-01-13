@@ -13,11 +13,13 @@
 //开发blog项目
 Route::group(['middleware' => ['web']], function () {
 
-    Route::get('/', function () {
+  Route::get('/', function () {
         return view('welcome');
     });
-    Route::get('admin/login','Admin\LoginController@login');
-    Route::get('admin/code','Admin\LoginController@code');
-    Route::get('admin/getcode','Admin\LoginController@getCode');
+  Route::any('admin/login','Admin\LoginController@login');
+  Route::get('admin/code','Admin\LoginController@code');
+  Route::get('admin/index','Admin\IndexController@index');
+
+
 
 });
