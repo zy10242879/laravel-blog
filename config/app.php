@@ -51,8 +51,8 @@ return [
     | ahead and set this to a sensible default for you out of the box.
     |
     */
-
-    'timezone' => 'UTC',
+    //修改时间为东8区
+    'timezone' => 'PRC',
 
     /*
     |--------------------------------------------------------------------------

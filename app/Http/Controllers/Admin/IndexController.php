@@ -10,6 +10,11 @@ class IndexController extends CommonController
 {
   public function index()
   {
-    echo 123;
+    return view('admin.index');
+    }
+
+  public function info()
+  {
+    return view('admin.info');
     }
 }
