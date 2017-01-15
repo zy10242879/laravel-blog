@@ -25,5 +25,7 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
   Route::get('info','IndexController@info');
   Route::get('logout','LoginController@logout');
   Route::any('pass','IndexController@pass');
+  //创建文章使用的资源控制器
+  Route::resource('category','CategoryController');
 
 });
