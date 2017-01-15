@@ -16,23 +16,25 @@ class LoginController extends CommonController
   //载入登录页面
   public function login()
   {
-    if ($post = Input::All()){
+    if ($input = Input::All()){
       $code = new \Code();
       $verifyCode = $code->get();//获取验证验方法
       //先验证验证码是否正确
-      if(strtoupper($post['code']) != $verifyCode){
+      if(strtoupper($input['code']) != $verifyCode){
         return back()->with('msg','验证码错误!');//返回前一页
       }
       //查询数据库，验证用户名和密码是否正确
-      $user = User::first();
-      if($post['user_name']!=$user->user_name || $post['user_pass']!=\Crypt::decrypt($user->user_pass)){
-      return back()->with('msg','用户名或密码错误!');
+      if($user = User::where('user_name',$input['user_name'])->first()){
+        if($input['user_name']==$user->user_name && $input['user_pass']==\Crypt::decrypt($user->user_pass)){
+          //将数据写入session中
+          session(['user_name'=>$user['user_name']]);
+          //跳转到后台index首页
+          return redirect('admin/index');
+        }
       }
-      //将数据写入session中
-      session(['user_name'=>$user['user_name']]);
-      //跳转到后台index首页
-      return redirect('admin/index');
-    }
+        return back()->with('msg','用户名或密码错误!');
+      }
+
     return view('admin.login');
   }
   //退出并清session
