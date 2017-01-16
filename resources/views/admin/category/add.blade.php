@@ -11,6 +11,21 @@
 	<div class="result_wrap">
         <div class="result_title">
             <h3>快捷操作</h3>
+            <!-----------注意写法----------->
+            @if(is_object($errors))
+                @if(count($errors)>0)
+                    <div class="mark">
+                    @foreach($errors->all() as $error)<!--注意写法-->
+                        <p>{{$error}}</p>
+                        @endforeach
+                    </div>
+                @endif
+            @else
+                <div class="mark">
+                    <p>{{$errors}}</p>
+                </div>
+        @endif
+        <!----------------------------->
         </div>
         <div class="result_content">
             <div class="short_wrap">
@@ -20,6 +35,7 @@
             </div>
         </div>
     </div>
+
     <!--结果集标题与导航组件 结束-->
     
     <div class="result_wrap">
@@ -60,7 +76,7 @@
                     <tr>
                         <th>描述：</th>
                         <td>
-                            <textarea name="cate_discription"></textarea>
+                            <textarea name="cate_description"></textarea>
                         </td>
                     </tr>
                     <tr>

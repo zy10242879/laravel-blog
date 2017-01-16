@@ -9,6 +9,11 @@ class Category extends Model
   protected $table='category';
   protected $primaryKey='cate_id';
   public $timestamps=false;
+  //---------------注意create()使用需要加入：$guarded（排除入库）或$fillable（允许入库）-----------
+  //注意：使用create时框架对字段保护，所以需要使用以下配置来进行开放创建
+  protected $guarded = [];//表示所有post的数据都可以通过create来进行入库操作[]如果写入字段，该字段将不能入库
+  //protected $fillable = [];//表示post允许写入的字段，需要填入字段名才能进行入库操作
+  //---------------------------------------------------------------------------------------
 
   //通用无限级分类
   public static function getTree($cates,$field_pid,$field_id,$pid=0){
