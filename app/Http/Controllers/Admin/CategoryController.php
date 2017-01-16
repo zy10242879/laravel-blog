@@ -13,7 +13,9 @@ class CategoryController extends CommonController
   public function index()
   {
     $categorys = Category::all();
-    return view('admin.category.index')->with('data',$categorys);
+    $data = Category::getTree($categorys,'cate_pid','cate_id');
+    $data = Category::setPrefix($data,'cate_name','cate_pid');
+    return view('admin.category.index')->with('data',$data);
   }
   //post.admin/category
   public function store()
