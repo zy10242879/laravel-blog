@@ -43,6 +43,20 @@ class Category extends Model
     return $tree;
   }
 
-
+  //获取分类信息
+  public static function getOptions(){
+    $cates = self::orderBy('cate_order')->get();
+    $tree = self::getTree($cates,'cate_pid','cate_id');
+    $res = self::setPrefix($tree,'cate_name','cate_pid');
+    //---------如果加入此段注释，可减少很多传参数据--------
+//    $res = [];    //只取需要的数据传入视图中，要将视图中的AR方式修改为数据方式
+//    foreach ($tree as $k=> $v){
+//      $res[$k]['cate_id']= $v->cate_id;
+//      $res[$k]['cate_name']= $v->cate_name;
+//      $res[$k]['cate_pid']= $v->cate_pid;
+//    }
+    //----------------------------------------------
+    return $res;
+  }
 
 }

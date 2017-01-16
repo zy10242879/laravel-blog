@@ -41,16 +41,17 @@ class CategoryController extends CommonController
       return $data;
     }
   }
-  
-  //post.admin/category
-  public function store()
-  {
 
-  }
   //get.admin/category/create 添加分类
   public function create()
   {
-
+    $data = Category::getOptions();
+    return view('admin.category.add',['data'=>$data]);
+  }
+  //post.admin/category //添加分类提交
+  public function store()
+  {
+    
   }
   //get.admin/category{category} 显示单个分类信息
   public function show()
