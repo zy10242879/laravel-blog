@@ -70,13 +70,33 @@ class CategoryController extends CommonController
     }
       return back()->withErrors($validator->errors());
   }
+  //get.admin/category/{category}/edit 编辑分类
+  public function edit($cate_id)
+  {
+    $data = Category::getOptions();
+    $field = Category::find($cate_id);
+    return view('admin.category.edit',compact('data','field'));
+  }
+  //put.admin/category/{category} 更新分类
+  public function update($cate_id)
+  {
+    //-----------------put方法，在视图中的写法----------------
+    //写入put方法，需要在视图中加入<input type='hidden' name="_method" value='put'>
+    $input = Input::except('_token','_method');
+    $rules = ['cate_name' => 'required',];
+    $messages = ['cate_name.required' => '分类名称不能为空',];
+    $validator = \Validator::make($input,$rules,$messages);
+    if($validator->passes()){
+      if(Category::where('cate_id',$cate_id)->update($input)){
+        return redirect('admin/category');
+      }else{
+        return back()->with('errors','数据更新失败，请稍候重试！');
+      }
+    }
+    return back()->withErrors($validator->errors());
+  }
   //get.admin/category{category} 显示单个分类信息
   public function show()
-  {
-
-  }
-  //put.admin/category{category} 更新分类
-  public function update()
   {
 
   }
@@ -85,9 +105,5 @@ class CategoryController extends CommonController
   {
 
   }
-  //get.admin/category/{category}/edit 编辑分类
-  public function edit()
-  {
 
-  }
 }
