@@ -27,5 +27,7 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
   Route::any('pass','IndexController@pass');
   //创建文章使用的资源控制器
   Route::resource('category','CategoryController');
+  //ajax更新排序
+  Route::post('category/changeOrder','CategoryController@changeOrder');
 
 });

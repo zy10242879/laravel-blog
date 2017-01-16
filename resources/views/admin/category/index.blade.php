@@ -37,7 +37,7 @@
                 <div class="short_wrap">
                     <a href="#"><i class="fa fa-plus"></i>新增文章</a>
                     <a href="#"><i class="fa fa-recycle"></i>批量删除</a>
-                    <a href="#"><i class="fa fa-refresh"></i>更新排序</a>
+                    <a href="{{url('admin/category')}}"><i class="fa fa-refresh"></i>更新排序</a>
                 </div>
             </div>
             <!--快捷导航 结束-->
@@ -59,7 +59,7 @@
                     <tr>
 
                         <td class="tc">
-                            <input type="text" name="ord[]" value="{{$v->cate_order}}">
+                            <input type="text" onchange="changeOrder(this,'{{$v->cate_id}}')" name="ord[]" value="{{$v->cate_order}}">
                         </td>
                         <td class="tc">{{$v->cate_id}}</td>
                         <td>
@@ -110,4 +110,15 @@
         </div>
     </form>
     <!--搜索结果页面 列表 结束-->
+    <script>
+        function changeOrder(obj,cate_id) {
+            $.post('{{url('admin/category/changeOrder')}}',{'_token':'{{csrf_token()}}','cate_id':cate_id,'cate_order':obj.value},function(data) {
+                if(data.status == 0){
+                    layer.msg(data.msg, {icon: 6});
+                }else{
+                    layer.msg(data.msg, {icon: 5});
+                }
+            })
+        }
+    </script>
 @endsection
