@@ -56,7 +56,7 @@
                         <th>操作</th>
                     </tr>
                     @foreach($data as $v)
-                    <tr>
+                    <tr id="delcate{{$v->cate_id}}">
 
                         <td class="tc">
                             <input type="text" onchange="changeOrder(this,'{{$v->cate_id}}')" name="ord[]" value="{{$v->cate_order}}">
@@ -71,7 +71,7 @@
                         <td>{{$v->cate_view}}</td>
                         <td>
                             <a href="{{url('admin/category/'.$v->cate_id.'/edit')}}">修改</a>
-                            <a href="#">删除</a>
+                            <a href="javascript:delCate({{$v->cate_id}})">删除</a>
                         </td>
                     </tr>
                     @endforeach
@@ -118,7 +118,23 @@
                 }else{
                     layer.msg(data.msg, {icon: 5});
                 }
-            })
+            });
         }
+        //ajax删除分类
+        function delCate(cate_id) {
+            layer.msg('你确定要删除分类吗？', {
+                btn: ['确认', '取消'],yes: function(){
+                    $.post("{{url('admin/category')}}/"+cate_id,{'_method':'delete','_token':'{{csrf_token()}}'},function (data) {
+                        if(data.status==0){
+                            layer.msg(data.msg, {icon: 6});
+                            $('#delcate'+cate_id).remove()
+                        }else{
+                            layer.msg(data.msg, {icon: 5});
+                        }
+                    });
+                }
+            });
+        }
+
     </script>
 @endsection
