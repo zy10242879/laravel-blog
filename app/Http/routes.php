@@ -25,9 +25,10 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
   Route::get('info','IndexController@info');
   Route::get('logout','LoginController@logout');
   Route::any('pass','IndexController@pass');
-  //创建文章使用的资源控制器
+  //创建文章分类使用的资源控制器
   Route::resource('category','CategoryController');
   //ajax更新排序
   Route::post('category/changeOrder','CategoryController@changeOrder');
-
+  //创建文章的资源控制器
+  Route::resource('article','ArticleController');
 });
