@@ -120,10 +120,10 @@
                             'swf'      : "{{asset('resources/org/uploadify/uploadify.swf')}}",
                         //④修改以下地址，提交到自己创建的控制器下，进行操作
                         {{--'uploader' : "{{asset('resources/org/uploadify/uploadify.php')}}",--}}
-                            'uploader' : "{{asset('admin/upload')}}",
-                    //----------文件上传成功后的操作---(同时可以加入文件上传失败的function())------
+                            'uploader' : "{{asset('admin/upload')}}",//⑤route创建控制器upload及逻辑
+                    //----------⑥文件上传成功后的操作---(同时可以加入文件上传失败的function())------
                             'onUploadSuccess':function (file,data,respose) {
-                    //-----------------重点注意：返回的不是json对象，是json字符串时的应用方式----------//
+                    //-----------------⑦重点注意：返回的不是json对象，是json字符串时的应用方式----------//
                                 var json = eval('('+data+')');
                     //--------------------(以上重要)-------------------------------------------//
                                 if(json.status == 0){
