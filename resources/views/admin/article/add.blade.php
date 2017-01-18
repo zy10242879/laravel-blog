@@ -99,10 +99,59 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>缩略图：</th>
+                        <th>缩略图:</th>
                         <td>
-                            <input type="text" class="lg" name="art_thumb">
+                            <input type="text" placeholder="图片上传必需小于2M　仅支持.jpg .jpeg .gif .png后缀文件" style="width: 30%;" class="lg" name="art_thumb">
+    <!--------------------uploadfiy(上传文件的使用①先将uploadify放入org中)----------------------------->
+                       <!------------ ②写入以下4个标签，修改引入地址 **4处@{{asset()}}** ------------->
+                            <input  id="file_upload" name="file_upload" type="file" multiple="true">
+                            <script src="{{asset('resources/org/uploadify/jquery.uploadify.min.js')}}" type="text/javascript"></script>
+                            <link rel="stylesheet" type="text/css" href="{{asset('resources/org/uploadify/uploadify.css')}}">
+                            <script type="text/javascript">
+                                <?php $timestamp = time();?>
+                                $(function() {//③配置页面
+                                    $('#file_upload').uploadify({
+                                        'buttonText' : '上传图片',//-----修改点击框内容------
+                                        'formData'     : {
+                                            'timestamp' : '<?php echo $timestamp;?>',
+                                            //修改csrf_token
+                                            '_token'     : "{{csrf_token()}}"
+                                        },
+                            'swf'      : "{{asset('resources/org/uploadify/uploadify.swf')}}",
+                        //④修改以下地址，提交到自己创建的控制器下，进行操作
+                        {{--'uploader' : "{{asset('resources/org/uploadify/uploadify.php')}}",--}}
+                            'uploader' : "{{asset('admin/upload')}}",
+                    //----------文件上传成功后的操作---(同时可以加入文件上传失败的function())------
+                            'onUploadSuccess':function (file,data,respose) {
+                    //-----------------重点注意：返回的不是json对象，是json字符串时的应用方式----------//
+                                var json = eval('('+data+')');
+                    //--------------------(以上重要)-------------------------------------------//
+                                if(json.status == 0){
+                                    //将路径写入缩略图文本框中 并生成图片显示
+                                    $('input[name=art_thumb]').val(json.msg);
+                                    $('#art_thumb_img').attr('src','/'+json.msg);
+                                }else{
+                                    $('input[name=art_thumb]').val(json.msg);
+                                    $('#art_thumb_img').attr('src','');
+                                }
+
+                            }
+                                    });
+                                });
+                            </script>
+                        <!-------------点选框样式微调----------------->
+                            <style>
+                                .uploadify{display:inline-block;}
+                                .uploadify-button{border:none; border-radius:5px; margin-top:8px;}
+                                table.add_tab tr td span.uploadify-button-text{color: #FFF; margin:0;}
+                            </style>
+                        <!------------------------------------------>
                         </td>
+                    </tr>
+                    <!-----------显示上传的图片--------->
+                    <tr>
+                        <th></th>
+                        <td><img style="max-width: 20%;max-height: 50%" id="art_thumb_img" src="" alt=""></td>
                     </tr>
 
                     <tr>

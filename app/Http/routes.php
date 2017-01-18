@@ -31,4 +31,6 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
   Route::post('category/changeOrder','CategoryController@changeOrder');
   //创建文章的资源控制器
   Route::resource('article','ArticleController');
+  //创建文件上传控制器
+  Route::any('upload','CommonController@upload');
 });
