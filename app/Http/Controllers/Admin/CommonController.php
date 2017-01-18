@@ -38,7 +38,7 @@ class CommonController extends Controller
       } else {
         $data = [
           'status'=>1,
-          'msg'=>'图片上传仅支持.jpg .jpeg .gif .png后缀文件',
+          'msg'=>'上传失败：图片上传仅支持.jpg .jpeg .gif .png后缀文件且小于2M!',
         ];
       }
       return $data;

@@ -101,7 +101,7 @@
                     <tr>
                         <th>缩略图:</th>
                         <td>
-                            <input type="text" placeholder="图片上传必需小于2M　仅支持.jpg .jpeg .gif .png后缀文件" style="width: 30%;" class="lg" name="art_thumb">
+                            <input disabled type="text" placeholder="图片上传必需小于2M　仅支持.jpg .jpeg .gif .png后缀文件" style="width: 30%;" class="lg" name="art_thumb">
     <!--------------------uploadfiy(上传文件的使用①先将uploadify放入org中)----------------------------->
                        <!------------ ②写入以下4个标签，修改引入地址 **4处@{{asset()}}** ------------->
                             <input  id="file_upload" name="file_upload" type="file" multiple="true">
@@ -131,7 +131,8 @@
                                     $('input[name=art_thumb]').val(json.msg);
                                     $('#art_thumb_img').attr('src','/'+json.msg);
                                 }else{
-                                    $('input[name=art_thumb]').val(json.msg);
+                                    $('input[name=art_thumb]').val('');
+                                    $('input[name=art_thumb]').attr('placeholder',json.msg);
                                     $('#art_thumb_img').attr('src','');
                                 }
 
