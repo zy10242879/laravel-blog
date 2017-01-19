@@ -48,8 +48,6 @@ class ArticleController extends CommonController
         }
       }else{
         //此处最好的方法为，在提交时，通过js来控制提交字段的验证
-        //此处可以过滤标签，但存在问题，如不过滤标签，将会在返回时有标签显示
-        //$input['art_content'] = strip_tags($input['art_content']);
         return back()->with('input',$input)->withErrors($validator->errors());
       }
     }

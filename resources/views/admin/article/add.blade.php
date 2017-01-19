@@ -91,7 +91,13 @@
                             <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/ueditor.all.min.js')}}"> </script>
 
                             <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
-                            <script id="editor" name="art_content" type="text/plain" style="width:80%;height:200px;" >{{!empty(session('input.art_content'))?session('input.art_content'):''}}</script>
+                    <!---------重要：以下if中，文章内容以实体方式输入出-------->
+                            <script id="editor" name="art_content" type="text/plain" style="width:80%;height:200px;" >
+                                @if(!empty(session('input.art_content')))
+                                    {!!session('input.art_content')!!}
+                                @endif
+                            </script>
+                    <!------------------注意写法------------------------->
                             <script>//实例化编辑器
                             var ue = UE.getEditor('editor');
                             </script>
