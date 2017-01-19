@@ -15,8 +15,12 @@ class ArticleController extends CommonController
   //get.admin/article 全部文章列表
   public function index()
   {
-    echo '这是全部文章列表';
+    //-----------------分页效果-------------------
+    $data = Article::orderBy('art_id','desc')->paginate(8);
+    return view('admin.article.index',compact('data'));
+    //------------------------------------------
   }
+
   //post.admin/article  添加文章提交
   public function store()
   {
