@@ -63,20 +63,40 @@ class ArticleController extends CommonController
   {
 
   }
-  //put.admin/article/{article } 更新文章
-  public function update()
+  //get.admin/article /{article }/edit 编辑文章
+  public function edit($art_id)
   {
+    $input = Article::find($art_id);
+    $data = Category::getOptions();
+    return view('admin.article.edit',compact('data','input'));
 
+  }
+  //put.admin/article/{article } 更新文章
+  public function update($art_id)
+  {
+    //可以验证一下标题和内容不为空，这里不做验证了
+    $input = Input::except('_token','_method');
+    $art_thumb = Article::find($art_id)->art_thumb;//数据库查出原来的文件名路径
+    //如果上传的图片修改了，那么就把临时文件的图片名改名为正式上传的图片名，并移除原来的图片
+    if(strpos($input['art_thumb'],'tmp')){
+      if(!empty($art_thumb)){//如果不为空字符串
+        unlink($art_thumb);//删除以前的文件
+      }
+      $new_name = substr($input['art_thumb'],0,8).substr($input['art_thumb'],11);
+      rename('./'.$input['art_thumb'],'./'.$new_name);
+      $input['art_thumb'] = $new_name;
+    }
+      if(Article::where('art_id',$art_id)->update($input)){
+      return back()->with('errors','文章更新成功！');
+    }else{
+      return back()->with('errors','更新文章失败，请稍候再试！');
+    }
   }
   //delete.admin/article/{article } 删除单个文章
   public function destroy()
   {
 
   }
-  //get.admin/article /{article }/edit 编辑文章
-  public function edit()
-  {
 
-  }
 
 }
