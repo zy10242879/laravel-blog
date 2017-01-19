@@ -44,7 +44,10 @@
                 <tr>
                     <th>编辑者：</th>
                     <td>
-                        <input type="text" class="sm" name="art_editor">
+                        <input type="text" class="sm" name="art_editor" value="{{!empty(session('input.art_editor'))?session('input.art_editor'):''}}">
+                        {{--@if(!empty(session('input.art_editor')))--}}
+                            {{--{{session('input.art_editor')}}--}}
+                        {{--@endif--}}
                     </td>
                 </tr>
                     <tr>
@@ -52,7 +55,12 @@
                         <td>
                             <select name="cate_id">
                                 @foreach($data as $v)
+                                    @if(!empty(session('input.cate_id')) && session('input.cate_id')==$v->cate_id)
+
+                                <option selected value="{{$v->cate_id}}">{{$v->cate_name}}</option>
+                                    @else
                                 <option value="{{$v->cate_id}}">{{$v->cate_name}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </td>
@@ -60,30 +68,30 @@
                     <tr>
                         <th><i class="require">*</i>文章标题：</th>
                         <td>
-                            <input type="text" class="lg" name="art_title">
+                            <input type="text" class="lg" name="art_title" value="{{!empty(session('input.art_title'))?session('input.art_title'):''}}">
                         </td>
                     </tr>
                     <tr>
                         <th>关键词：</th>
                         <td>
-                            <input type="text" class="lg" name="art_tag">
+                            <input type="text" class="lg" name="art_tag" value="{{!empty(session('input.art_tag'))?session('input.art_tag'):''}}">
                         </td>
                     </tr>
                     <tr>
                         <th>描述：</th>
                         <td>
-                            <textarea name="art_description"></textarea>
+                            <textarea name="art_description">{{!empty(session('input.art_description'))?session('input.art_description'):''}}</textarea>
                         </td>
                     </tr>
                     <tr>
-                        <th>文章内容：</th>
+                        <th><i class="require">*</i>文章内容：</th>
                         <td>
     <!-----------------------------使用uedit编辑器需要引入的文件---------------------------->
                             <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/ueditor.config.js')}}"></script>
                             <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/ueditor.all.min.js')}}"> </script>
 
                             <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
-                            <script id="editor" name="art_content" type="text/plain" style="width:80%;height:200px;"></script>
+                            <script id="editor" name="art_content" type="text/plain" style="width:80%;height:200px;" >{{!empty(session('input.art_content'))?session('input.art_content'):''}}</script>
                             <script>//实例化编辑器
                             var ue = UE.getEditor('editor');
                             </script>
@@ -95,13 +103,15 @@
                                 div.edui-box{overflow: hidden; height:22px;}
                             </style>
     <!--------------------------------------------------------------------------------->
-
                         </td>
                     </tr>
                     <tr>
                         <th>缩略图:</th>
                         <td>
-                            <input disabled type="text" placeholder="图片上传必需小于2M　仅支持.jpg .jpeg .gif .png后缀文件" style="width: 30%;" class="lg" name="art_thumb">
+                            <input disabled type="text" placeholder="{{!empty(session('input.art_thumb'))?session('input.art_thumb'):'图片上传必需小于2M　仅支持.jpg .jpeg .gif .png后缀文件'}}" style="width: 30%;" class="lg" name="art_thumb">
+                            <!--注意：由于disabled无法提交，所以加入以下隐藏域作提交用-->
+                            <input value="{{!empty(session('input.art_thumb'))?session('input.art_thumb'):''}}" type="hidden"  name="art_thumb" >
+                            <!------以下ajax中对以上两个标签都进行操作，故无需修改------>
     <!--------------------uploadfiy(上传文件的使用①先将uploadify放入org中)----------------------------->
                        <!------------ ②写入以下4个标签，修改引入地址 **4处@{{asset()}}** ------------->
                             <input  id="file_upload" name="file_upload" type="file" multiple="true">
@@ -152,7 +162,7 @@
                     <!-----------显示上传的图片--------->
                     <tr>
                         <th></th>
-                        <td><img style="max-width: 20%;max-height: 50%" id="art_thumb_img" src="" alt=""></td>
+                        <td><img style="max-width: 20%;max-height: 50%" id="art_thumb_img"  src="{{!empty(session('input.art_thumb'))?'/'.session('input.art_thumb'):''}}" alt=""></td>
                     </tr>
 
                     <tr>
