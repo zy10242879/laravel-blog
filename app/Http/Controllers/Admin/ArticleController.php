@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
-use MongoDB\BSON\Timestamp;
 
 class ArticleController extends CommonController
 {
@@ -92,11 +91,23 @@ class ArticleController extends CommonController
       return back()->with('errors','更新文章失败，请稍候再试！');
     }
   }
-  //delete.admin/article/{article } 删除单个文章
-  public function destroy()
+  //ajax  delete.admin/article/{article } 删除单个文章
+  public function destroy($art_id)
   {
-
+    $art = Article::find($art_id);
+    if($art != null){
+      $art_thumb = $art->art_thumb;
+      if(Article::where('art_id',$art_id)->delete()){
+        if(!empty($art_thumb)){
+          unlink($art_thumb);
+        }
+        $data = ['status'=>0, 'msg'=>'文章删除成功!'];
+      }else{
+        $data = ['status'=>1,'msg'=>'删除文章失败，请稍候重试！'];
+      }
+    }else{
+      $data = ['status'=>1,'msg'=>'参数异常，请联系管理员！'];
+    }
+   return $data;
   }
-
-
 }

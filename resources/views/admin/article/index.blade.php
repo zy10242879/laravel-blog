@@ -35,7 +35,7 @@
                         <th>操作</th>
                     </tr>
                     @foreach($data as $v)
-                        <tr>
+                        <tr id="delart{{$v->art_id}}">
                             <td class="tc">{{$v->art_id}}</td>
                             <td>
                                 <a href="#">{{$v->art_title}}</a>
@@ -45,7 +45,7 @@
                             <td>{{date('Y-m-d',$v->art_time)}}</td>
                             <td>
                                 <a href="{{url('admin/article/'.$v->art_id.'/edit')}}">修改</a>
-                                <a href="javascript:;" onclick="delArt({{$v->art_id}})">删除</a>
+                                <a href="javascript:delArt({{$v->art_id}})">删除</a>
                             </td>
                         </tr>
                     @endforeach
@@ -67,4 +67,21 @@
         }
     </style>
     <!--------------------------->
+    <script>
+        //ajax删除文章
+        function delArt(art_id) {
+            layer.msg('你确定要删除这篇文章吗？', {
+                btn: ['确认', '取消'],yes: function(){
+                    $.post("{{url('admin/article')}}/"+art_id,{'_method':'delete','_token':'{{csrf_token()}}'},function (data) {
+                        if(data.status==0){
+                            layer.msg(data.msg, {icon: 6});
+                            $('#delart'+art_id).remove()
+                        }else{
+                            layer.msg(data.msg, {icon: 5});
+                        }
+                    });
+                }
+            });
+        }
+    </script>
 @endsection
