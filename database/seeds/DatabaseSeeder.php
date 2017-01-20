@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+      //-------要填充哪个表，要通过以下方法调用种子文件---------
+        $this->call(LinksTableSeeder::class);
     }
 }
