@@ -33,4 +33,8 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
   Route::resource('article','ArticleController');
   //创建文件上传控制器
   Route::any('upload','CommonController@upload');
+  //创建友情链接使用的资源控制器
+  Route::resource('links','LinksController');
+  //ajax更新链接排序
+  Route::post('links/changeOrder','LinksController@changeOrder');
 });
