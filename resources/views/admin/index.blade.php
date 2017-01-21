@@ -36,8 +36,8 @@
             <li>
             	<h3><i class="fa fa-fw fa-cog"></i>系统设置</h3>
                 <ul style="display: block" class="sub_menu">
-                    <li><a href="{{url('admin/links/create')}}" target="main"><i class="fa fa-fw fa-cubes"></i>添加友情链接</a></li>
-                    <li><a href="{{url('admin/links')}}" target="main"><i class="fa fa-fw fa-database"></i>显示友情链接</a></li>
+                    <li><a href="{{url('admin/links')}}" target="main"><i class="fa fa-fw fa-database"></i>友情链接</a></li>
+                    <li><a href="{{url('admin/navs')}}" target="main"><i class="fa  fa-navicon"></i>自定义导航</a></li>
                 </ul>
             </li>
             <li>

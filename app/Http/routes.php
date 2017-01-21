@@ -37,4 +37,8 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
   Route::resource('links','LinksController');
   //ajax更新链接排序
   Route::post('links/changeOrder','LinksController@changeOrder');
+  //创建自定义导航使用的资源控制器
+  Route::resource('navs','NavsController');
+  //ajax更新链接排序
+  Route::post('navs/changeOrder','NavsController@changeOrder');
 });
