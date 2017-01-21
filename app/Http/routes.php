@@ -41,4 +41,8 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
   Route::resource('navs','NavsController');
   //ajax更新链接排序
   Route::post('navs/changeOrder','NavsController@changeOrder');
+  //创建配置使用的资源控制器
+  Route::resource('config','ConfigController');
+  //ajax更新配置排序
+  Route::post('config/changeOrder','ConfigController@changeOrder');
 });
