@@ -17,10 +17,10 @@ class ConfigController extends Controller
     foreach($data as $k=>$v){
       switch ($v->field_type){
         case 'input':  //使用$data[$k]，是针对每一组数据进行拼接
-          $data[$k]->_html = '<input type="text" class="lg" name="conf_content" value="'.$v->conf_content.'">';
+          $data[$k]->_html = '<input type="text" class="lg" name="conf_content[]" value="'.$v->conf_content.'">';
           break;
         case 'textarea':
-          $data[$k]->_html = '<textarea type="text" class="lg" name="conf_content">'.$v->conf_content.'</textarea>';
+          $data[$k]->_html = '<textarea type="text" class="lg" name="conf_content[]">'.$v->conf_content.'</textarea>';
           break;
         case 'radio':
           //$v->field_value 是字符串 1|开启,0|关闭
@@ -30,7 +30,7 @@ class ConfigController extends Controller
             //遍历后的$n='1|开启'
             $r = explode('|',$n);  //再次通过遍历分割为：[0=>1,1=>'开启']
             $c = $v->conf_content==$r[0]?' checked':'';//判断是否被选中的三元
-            $str .= '<input type="radio" name="conf_content" value="'.$r[0].'"'.$c.'>'.$r[1].'　';
+            $str .= '<input type="radio" name="conf_content[]" value="'.$r[0].'"'.$c.'>'.$r[1].'　';
           }
           $data[$k]->_html = $str;
           break;
@@ -39,6 +39,17 @@ class ConfigController extends Controller
   //----------------------------------------------------------------
     return view('admin.config.index',compact('data'));
   }
+  //修改配置项内容
+  //----------------------注意：两个数据的更新逻辑---------------------
+  public function changeContent()
+  {
+    $input = Input::all();
+    foreach($input['conf_id'] as $k=>$v){
+      Config::where('conf_id',$v)->update(['conf_content'=>$input['conf_content'][$k]]);
+    }
+    return back()->with('errors','配置项更新成功！');
+  }
+  //---------------------------------------------------------------
   //ajax更新排序
   public function changeOrder()
   {
