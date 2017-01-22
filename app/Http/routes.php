@@ -42,10 +42,15 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
   //ajax更新链接排序
   Route::post('navs/changeOrder','NavsController@changeOrder');
 
-  //创建配置使用的资源控制器
-  Route::resource('config','ConfigController');
+  //-----注意：其它路由方法要放在资源路由上面，不然容易产生误读路由的情况---------
+  //配置项写入根目录下的config文件夹中，生成web.php配置文件的路由
+  Route::get('config/putFile','ConfigController@putFile');
   //ajax更新配置排序
   Route::post('config/changeOrder','ConfigController@changeOrder');
   //配置项提交路由
   Route::post('config/changeContent','ConfigController@changeContent');
+  //创建配置使用的资源控制器
+  Route::resource('config','ConfigController');
+
+
 });

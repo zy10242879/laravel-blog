@@ -47,9 +47,26 @@ class ConfigController extends Controller
     foreach($input['conf_id'] as $k=>$v){
       Config::where('conf_id',$v)->update(['conf_content'=>$input['conf_content'][$k]]);
     }
+    $this->putFile();//需要自动更新配置项文件
     return back()->with('errors','配置项更新成功！');
   }
   //---------------------------------------------------------------
+  //------------将配置项写入根目录下的config文件夹下的web.php文件中去--------
+  public function putFile()
+  {
+    //pluck可以选择字段，如果选择一个字段，会以0下标开始组成一个数组
+    //如果加入两个字段，就是将后一个字段作为下标，前一个字段做为值，生成一个键值的数组
+    //如有第三个字段，效果仅同两个字段，第三个字段忽略
+    $config = Config::pluck('conf_content','conf_name')->toArray();//注意：pluck的用法
+    $path = base_path().'/config/web.php';//构建存储路径  使用↑↑↑↑toArray()将对象转为数组
+    //var_export(参数1[,参数2])的用法
+    //仅传 参数1:(是一个数组或字符串等)，将参数1转化为字符串，直接输出到屏幕上
+    //传参数2:true　将数组转化为字符串，可以通过变量来接收
+    $str = "<?php \n return ".var_export($config,true).';';
+    //通过file_put_contents($path,$str)来进行文件的写入
+    file_put_contents($path,$str);
+  }
+  //-----------------------------------------------------------------
   //ajax更新排序
   public function changeOrder()
   {
@@ -112,6 +129,7 @@ class ConfigController extends Controller
     $validator = \Validator::make($input, $rules, $messages);
     if ($validator->passes()) {
       if(Config::where('conf_id',$conf_id)->update($input)){
+        $this->putFile();//需要自动更新配置项文件
         return back()->with('errors','更新配置项成功！');
       }else{
         return back()->with('errors','更新失败，请稍候重试！');
@@ -123,6 +141,7 @@ class ConfigController extends Controller
   public function destroy($conf_id)
   {
     if(Config::where('conf_id',$conf_id)->delete()){
+      $this->putFile();//需要自动更新配置项文件
       $data = ['status' => 0, 'msg' => '删除配置项成功！',];
     }else{
       $data = ['status' => 1, 'msg' => '删除配置项失败，请稍候重试！',];

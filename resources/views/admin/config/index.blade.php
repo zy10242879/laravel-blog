@@ -72,7 +72,7 @@
                 </tr>
 
                 @foreach($data as $v)
-                <tr id="delConfig{{$v->config_id}}">
+                <tr id="delConfig{{$v->conf_id}}">
                     <td class="tc">
                         <input type="text" onchange="changeOrder(this,{{$v->conf_id}})" value="{{$v->conf_order}}">
                     </td>
@@ -86,7 +86,7 @@
                         {!! $v->_html !!}</td>
                     <td>
                         <a href="{{url('admin/config/'.$v->conf_id.'/edit')}}">修改</a>
-                        <a href="javascript:;" onclick="delLinks({{$v->conf_id}})">删除</a>
+                        <a href="javascript:;" onclick="delConfig({{$v->conf_id}})">删除</a>
                     </td>
                 </tr>
                 @endforeach
@@ -113,25 +113,23 @@
         });
     }
 
-    //删除配置项
+    //ajax删除分类
     function delConfig(conf_id) {
-        layer.confirm('您确定要删除这个配置项吗？', {
-            btn: ['确定','取消'] //按钮
-        }, function(){
-            $.post("{{url('admin/config/')}}/"+conf_id,{'_method':'delete','_token':"{{csrf_token()}}"},function (data) {
-                if(data.status==0){
-                    layer.msg(data.msg, {icon: 6});
-                    $('#delConfig'+conf_id).remove()
-                }else{
-                    layer.msg(data.msg, {icon: 5});
-                }
-            });
-//            layer.msg('的确很重要', {icon: 1});
-        }, function(){
-
+        layer.msg('你确定要删除分类吗？', {
+            btn: ['确认', '取消'],yes: function(){
+                $.post("{{url('admin/config')}}/"+conf_id,{'_method':'delete','_token':'{{csrf_token()}}'},function (data) {
+                    if(data.status==0){
+                        layer.msg(data.msg, {icon: 6});
+                        $('#delConfig'+conf_id).remove()
+                    }else{
+                        layer.msg(data.msg, {icon: 5});
+                    }
+                });
+            }
         });
     }
 
+</script>
 
 
 </script>
