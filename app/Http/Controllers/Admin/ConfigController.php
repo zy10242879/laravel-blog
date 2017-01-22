@@ -13,6 +13,30 @@ class ConfigController extends Controller
   public function index()
   {
     $data = Config::orderBy('conf_order')->get();
+  //------------------对field_type字段进行判断后组合输出-----------------
+    foreach($data as $k=>$v){
+      switch ($v->field_type){
+        case 'input':  //使用$data[$k]，是针对每一组数据进行拼接
+          $data[$k]->_html = '<input type="text" class="lg" name="conf_content" value="'.$v->conf_content.'">';
+          break;
+        case 'textarea':
+          $data[$k]->_html = '<textarea type="text" class="lg" name="conf_content">'.$v->conf_content.'</textarea>';
+          break;
+        case 'radio':
+          //$v->field_value 是字符串 1|开启,0|关闭
+          $arr = explode(',',$v->field_value); //通过','分割成数组 [0=>'1|开启',1=>'0|关闭']
+          $str = '';//用于拼接
+          foreach($arr as $m=>$n){ //遍历上面分割的数组
+            //遍历后的$n='1|开启'
+            $r = explode('|',$n);  //再次通过遍历分割为：[0=>1,1=>'开启']
+            $c = $v->conf_content==$r[0]?' checked':'';//判断是否被选中的三元
+            $str .= '<input type="radio" name="conf_content" value="'.$r[0].'"'.$c.'>'.$r[1].'　';
+          }
+          $data[$k]->_html = $str;
+          break;
+      }
+    }
+  //----------------------------------------------------------------
     return view('admin.config.index',compact('data'));
   }
   //ajax更新排序
