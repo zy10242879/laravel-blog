@@ -12,12 +12,12 @@
 */
 //开发blog项目
 Route::group(['middleware' => ['web']], function () {
+  Route::get('/','Home\IndexController@index');//前台首页路由
+  Route::get('/cate','Home\IndexController@cate');//前台分类页路由
+  Route::get('/art','Home\IndexController@article');//前台详细页路由
 
-  Route::get('/', function () {
-        return view('welcome');
-    });
-  Route::any('admin/login','Admin\LoginController@login');
-  Route::get('admin/code','Admin\LoginController@code');
+  Route::any('admin/login','Admin\LoginController@login');//后台登录页路由
+  Route::get('admin/code','Admin\LoginController@code');//后台获取验证码路由
 });
 //建立admin下的路由及中间件的设置 用于判断session，是否是登录状态
 Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace'=>'Admin'], function () {
