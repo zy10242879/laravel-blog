@@ -5,8 +5,8 @@
 		<div class="top_left">
 			<div class="logo">后台管理模板</div>
 			<ul>
-				<li><a href="{{url('admin/index')}}" class="active">首页</a></li>
-				<li><a href="#">管理页</a></li>
+				<li><a href="{{url('/')}}" target="_blank">前台首页</a></li>
+				<li><a href="{{url('admin/info')}}" target="main"  class="active">后台管理页</a></li>
 			</ul>
 		</div>
 		<div class="top_right">
@@ -23,14 +23,14 @@
 	<div class="menu_box">
 		<ul>
             <li>
-            	<h3><i class="fa fa-fw fa-clipboard"></i>常用操作</h3>
+            	<h3><i class="fa fa-fw fa-clipboard"></i>内容管理</h3>
                 <ul class="sub_menu">
                     <li><a href="{{url('admin/category/create')}}" target="main"><i class="fa fa-fw fa-plus-square"></i>添加分类</a></li>
                     <li><a href="{{url('admin/category')}}" target="main"><i class="fa fa-fw fa-list-ul"></i>分类列表</a></li>
                     <li><a href="{{url('admin/article/create')}}" target="main"><i class="fa fa-fw fa-plus-square"></i>添加文章</a></li>
                     <li><a href="{{url('admin/article')}}" target="main"><i class="fa fa-fw fa-list-ul"></i>文章列表</a></li>
-                    <li><a href="tab.html" target="main"><i class="fa fa-fw fa-list-alt"></i>tab页</a></li>
-                    <li><a href="img.html" target="main"><i class="fa fa-fw fa-image"></i>图片列表</a></li>
+                    {{--<li><a href="tab.html" target="main"><i class="fa fa-fw fa-list-alt"></i>tab页</a></li>--}}
+                    {{--<li><a href="img.html" target="main"><i class="fa fa-fw fa-image"></i>图片列表</a></li>--}}
                 </ul>
             </li>
             <li>
@@ -38,6 +38,7 @@
                 <ul style="display: block" class="sub_menu">
                     <li><a href="{{url('admin/links')}}" target="main"><i class="fa fa-fw fa-database"></i>友情链接</a></li>
                     <li><a href="{{url('admin/navs')}}" target="main"><i class="fa  fa-navicon"></i>自定义导航</a></li>
+                    <li><a href="{{url('admin/config')}}" target="main"><i class="fa  fa-cogs"></i>网站配置项</a></li>
                 </ul>
             </li>
             <li>

@@ -52,6 +52,7 @@
             <div class="short_wrap">
                 <a href="{{url('admin/config/create')}}"><i class="fa fa-plus"></i>添加配置项</a>
                 <a href="{{url('admin/config')}}"><i class="fa fa-recycle"></i>全部配置项</a>
+                <a href="{{url('admin/config')}}"><i class="fa fa-refresh"></i>更新排序</a>
             </div>
         </div>
         <!--快捷配置项 结束-->

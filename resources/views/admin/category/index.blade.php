@@ -40,6 +40,7 @@
                 <div class="short_wrap">
                     <a href="{{url('admin/category/create')}}"><i class="fa fa-plus"></i>添加分类</a>
                     <a href="{{url('admin/category')}}"><i class="fa fa-recycle"></i>全部分类</a>
+                    <a href="{{url('admin/category')}}"><i class="fa fa-refresh"></i>更新排序</a>
                 </div>
             </div>
             <!--快捷导航 结束-->
