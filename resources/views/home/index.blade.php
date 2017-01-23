@@ -1,8 +1,8 @@
 ﻿@extends('layouts.home')
 @section('info')
-  <title>个人博客首面</title>
-  <meta name="keywords" content="个人博客模板,博客模板" />
-  <meta name="description" content="寻梦主题的个人博客模板，优雅、稳重、大气,低调。" />
+  <title>{{Config::get('web.web_title')}}-{{Config::get('web.seo_title')}}</title>
+  <meta name="keywords" content="{{Config::get('web.keywords')}}" />
+  <meta name="description" content="{{Config::get('web.description')}}" />
 @endsection
 @section('content')
 <div class="banner">

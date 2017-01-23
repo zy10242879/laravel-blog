@@ -6,7 +6,7 @@
 			<div class="logo">后台管理模板</div>
 			<ul>
 				<li><a href="{{url('/')}}" target="_blank">前台首页</a></li>
-				<li><a href="{{url('admin/info')}}" target="main"  class="active">后台管理页</a></li>
+				<li><a href="{{url('admin/index')}}" target="_top"  class="active">后台管理页</a></li>
 			</ul>
 		</div>
 		<div class="top_right">

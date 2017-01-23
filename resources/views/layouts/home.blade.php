@@ -28,7 +28,7 @@
     @show
 <!----------------------------->
 <footer>
-    <p>Design by zy10242879 <a href="http://www.miitbeian.gov.cn/" target="_blank">http://github.com/zy10242879</a> <a href="/">网站统计</a></p>
+    <p>{!! Config::get('web.copyright') !!} <a href="/">{{Config::get('web.web_count')}}</a></p>
 </footer>
 <script src="{{asset('resources/views/home/js/silder.js')}}"></script>
 </body>
