@@ -29,7 +29,7 @@ class LoginController extends CommonController
           //将数据写入session中
           session(['user_name'=>$user['user_name']]);
           //跳转到后台index首页
-          return redirect('admin/index');
+          return redirect('admin');
         }
       }
         return back()->with('msg','用户名或密码错误!');

@@ -21,7 +21,7 @@ Route::group(['middleware' => ['web']], function () {
 });
 //建立admin下的路由及中间件的设置 用于判断session，是否是登录状态
 Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace'=>'Admin'], function () {
-  Route::get('index','IndexController@index');
+  Route::get('/','IndexController@index');
   Route::get('info','IndexController@info');
   Route::get('logout','LoginController@logout');
   Route::any('pass','IndexController@pass');
