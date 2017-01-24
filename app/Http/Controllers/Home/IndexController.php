@@ -32,6 +32,10 @@ class IndexController extends CommonController
     $data = Article::whereIn('cate_id',$category)->orderBy('art_time','desc')->paginate(3);
     //----------------------------------------------------------------------------------
     $field = Category::find($cate_id);
+    //---------------------增加查看次数-自增的用法(静默处理)----------------
+    Category::where('cate_id',$cate_id)->increment('cate_view');
+    //('cate_view',5)访问一次加5，
+    //----------------------------------------------------------------
     return view('home.list',compact('field','data','cates'));
   }
   //前台文章详细页
@@ -39,6 +43,15 @@ class IndexController extends CommonController
   {
     //----------关联查询的使用
     $data = Article::where('art_id',$art_id)->Join('category','article.cate_id','=','category.cate_id')->first();
-    return view('home.new',compact('data'));
+    //------上一篇，下一篇
+    $art['pre']=Article::where('art_id','<',$art_id)->orderBy('art_id','desc')->first();
+    $art['next']=Article::where('art_id','>',$art_id)->orderBy('art_id','asc')->first();
+    //----相关文章
+    $articles = Article::where('cate_id',$data->cate_id)->take(6)->get();
+    //---------------------增加查看次数-自增的用法(静默处理)----------------
+    Article::where('art_id',$art_id)->increment('art_view');
+        //('art_view',5)访问一次加5，可以按进入ip算pv次数，同一ip半小时点N次算一次的算法
+    //----------------------------------------------------------------
+    return view('home.new',compact('data','art','articles'));
   }
 }

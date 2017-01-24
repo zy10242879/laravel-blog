@@ -19,18 +19,19 @@
     </div>
     <div class="ad"> </div>
     <div class="nextinfo">
-      <p>上一篇：<a href="/news/s/2013-09-04/606.html">程序员应该如何高效的工作学习</a></p>
-      <p>下一篇：<a href="/news/s/2013-10-21/616.html">柴米油盐的生活才是真实</a></p>
+      @if($art['pre'])
+      <p>上一篇：<a href="{{url('art/'.$art['pre']->art_id)}}">{{$art['pre']->art_title}}</a></p>
+      @endif
+      @if($art['next'])
+      <p>下一篇：<a href="{{url('art/'.$art['next']->art_id)}}">{{$art['next']->art_title}}</a></p>
+      @endif
     </div>
     <div class="otherlink">
       <h2>相关文章</h2>
       <ul>
-        <li><a href="/news/s/2013-07-25/524.html" title="现在，我相信爱情！">现在，我相信爱情！</a></li>
-        <li><a href="/newstalk/mood/2013-07-24/518.html" title="我希望我的爱情是这样的">我希望我的爱情是这样的</a></li>
-        <li><a href="/newstalk/mood/2013-07-02/335.html" title="有种情谊，不是爱情，也算不得友情">有种情谊，不是爱情，也算不得友情</a></li>
-        <li><a href="/newstalk/mood/2013-07-01/329.html" title="世上最美好的爱情">世上最美好的爱情</a></li>
-        <li><a href="/news/read/2013-06-11/213.html" title="爱情没有永远，地老天荒也走不完">爱情没有永远，地老天荒也走不完</a></li>
-        <li><a href="/news/s/2013-06-06/24.html" title="爱情的背叛者">爱情的背叛者</a></li>
+        @foreach($articles as $art)
+        <li><a href="{{url('art/'.$art->art_id)}}" title="{{$art->art_title}}">{{$art->art_title}}</a></li>
+        @endforeach
       </ul>
     </div>
   </div>
