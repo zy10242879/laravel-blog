@@ -35,8 +35,10 @@ class IndexController extends CommonController
     return view('home.list',compact('field','data','cates'));
   }
   //前台文章详细页
-  public function article()
+  public function article($art_id)
   {
-    return view('home.new');
+    //----------关联查询的使用
+    $data = Article::where('art_id',$art_id)->Join('category','article.cate_id','=','category.cate_id')->first();
+    return view('home.new',compact('data'));
   }
 }

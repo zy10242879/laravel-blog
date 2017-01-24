@@ -14,7 +14,7 @@
 Route::group(['middleware' => ['web']], function () {
   Route::get('/','Home\IndexController@index');//前台首页路由
   Route::get('/cate/{cate_id}','Home\IndexController@cate');//前台分类页路由
-  Route::get('/art','Home\IndexController@article');//前台详细页路由
+  Route::get('/art/{art_id}','Home\IndexController@article');//前台详细页路由
 
   Route::any('admin/login','Admin\LoginController@login');//后台登录页路由
   Route::get('admin/code','Admin\LoginController@code');//后台获取验证码路由
