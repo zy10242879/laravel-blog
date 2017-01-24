@@ -25,8 +25,37 @@
 </header>
 <!----注意：这里两个section()用法-->
 @section('content')
-    @show
+    <div class="news" style="float: right">
+        <h3>
+            <p>最新<span>文章</span></p>
+        </h3>
+        <ul class="rank">
+            @foreach($new as $n)
+                <li><a href="{{url('art/'.$n->art_id)}}" title="{{$n->art_title}}" target="_blank">{{$n->art_title}}</a></li>
+            @endforeach
+        </ul>
+        <h3 class="ph">
+            <p>点击<span>排行</span></p>
+        </h3>
+        <ul class="paih">
+            @foreach($hot as $m=>$h)
+                @if($m<5)
+                    <li><a href="{{url('art/'.$h->art_id)}}" title="{{$h->art_title}}" target="_blank">{{$h->art_title}}</a></li>
+                @endif
+            @endforeach
+        </ul>
+        <h3 class="links">
+            <p>友情<span>链接</span></p>
+        </h3>
+        <ul class="website">
+            @foreach($links as $l)
+                <li><a target="_blank" href="{{$l->link_url}}">{{$l->link_name}}</a></li>
+            @endforeach
+        </ul>
+    </div>
+@show
 <!----------------------------->
+
 <footer>
     <p>{!! Config::get('web.copyright') !!} <a href="/">{{Config::get('web.web_count')}}</a></p>
 </footer>
