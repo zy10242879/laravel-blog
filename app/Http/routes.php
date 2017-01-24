@@ -13,7 +13,7 @@
 //开发blog项目
 Route::group(['middleware' => ['web']], function () {
   Route::get('/','Home\IndexController@index');//前台首页路由
-  Route::get('/cate','Home\IndexController@cate');//前台分类页路由
+  Route::get('/cate/{cate_id}','Home\IndexController@cate');//前台分类页路由
   Route::get('/art','Home\IndexController@article');//前台详细页路由
 
   Route::any('admin/login','Admin\LoginController@login');//后台登录页路由
